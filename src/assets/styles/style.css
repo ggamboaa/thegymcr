@@ -1,0 +1,12 @@
+:root {
+  --primary: #111854;
+  --light: #ffffff;
+  --gray: #efefef;
+}
+
+.body {
+  overflow: hidden;
+  font-family: "Muli", sans-serif;
+  font-weight: 300;
+  color: var(--primary);
+}
