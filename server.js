@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("./server/models/db");
-var cors = require("cors");
+// var cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
 const seed = require("./server/models/seed/seed-bd");
@@ -8,7 +8,7 @@ const seed = require("./server/models/seed/seed-bd");
 // setup the Express middleware
 //require('./server/middleware/middleware')(app);
 
-app.use(cors());
+// app.use(cors());
 
 // Create link to Angular build directory
 var distDir = __dirname + "/dist/";
