@@ -1,7 +1,8 @@
 :root {
-  --primary: #111854;
+  --primary: #24e372;
   --light: #ffffff;
-  --gray: #efefef;
+  --gray: hsl(0, 100%, 99%);
+  --white: white;
 }
 
 .body {
