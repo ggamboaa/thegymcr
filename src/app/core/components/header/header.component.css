@@ -23,16 +23,11 @@ a:hover {
   padding: 0.875rem 1.25rem;
 }
 #sidebar-container .menu {
-  width: 18rem;
+  width: 12rem;
 }
 .btn-search {
   right: 5px;
 }
 .avatar {
   max-width: 35px;
-}
-#content {
-  overflow-y: auto;
-  height: 100vh;
-  padding-bottom: 5rem;
 }

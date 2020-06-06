@@ -4,11 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './core/components/header/header.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DatesComponent } from './modules/dates/dates.component';
+import { ReservesComponent } from './modules/reserves/reserves.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpModule],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    DatesComponent,
+    ReservesComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, HttpModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

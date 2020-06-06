@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { DatesComponent } from './modules/dates/dates.component';
+import { ReservesComponent } from './modules/reserves/reserves.component';
 // import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-  // {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
-  // {
-  //   path: '',
-  //   loadChildren:
-  //     // './components/authentication/authentication.module#AuthenticationModule',
-  // },
   {
-    path: 'home',
-    // canActivate: [AuthGuard],
-    loadChildren: './modules/customers/customers.module#CustomersModule',
+    path: '',
+    component: ReservesComponent,
+  },
+  {
+    path: 'dates',
+    component: DatesComponent,
   },
 ];
 

@@ -1,0 +1,107 @@
+<div class="container w-100">
+  <div class="row">
+    <div class="container">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                src="assets/img/user-1.png"
+                alt=""
+                class="img-fluid rounded-circle avatar mr2"
+              />
+              Usuario
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="content" class="w-100">
+    <section class="py-3">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card m-3">
+            <h5 class="card-header text-center">Bienvenido al Sistema</h5>
+            <div class="card-body">
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="id">Cédula</label>
+                    <input
+                      type="text"
+                      formControlName="id"
+                      class="form-control"
+                      [ngClass]="{ 'is-invalid': submitted && f.id.errors }"
+                    />
+                    <div
+                      *ngIf="submitted && f.id.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="f.id.errors.required">
+                        Cédula es requerida
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col">
+                    <label for="days">Día</label>
+                    <select
+                      formControlName="days"
+                      class="form-control"
+                      id="days"
+                    >
+                      <option
+                        *ngFor="let day of days; let i = index"
+                        [value]="days[i].id"
+                      >
+                        {{ day.desc }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form-group col">
+                    <label for="hours">Hora</label>
+                    <select
+                      formControlName="hours"
+                      class="form-control"
+                      id="hours"
+                    >
+                      <option
+                        *ngFor="let hour of hours; let i = index"
+                        [value]="hours[i].id"
+                      >
+                        {{ hour.desc }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <button class="btn btn-primary mr-1">Guardar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 d-flex"></div>
+      </div>
+    </section>
+  </div>
+</div>
