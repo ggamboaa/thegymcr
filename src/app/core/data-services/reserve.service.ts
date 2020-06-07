@@ -12,7 +12,7 @@ export class ReserveService {
 
   public add(objCustomer: any): Observable<any> {
     return this.http
-      .post(`${CONFIG.api.basePath}/reserve`, objCustomer)
+      .post(`${CONFIG.api.basePath}/dates`, objCustomer)
       .pipe(catchError(this.handleError<any>('getCustomers')));
   }
 
