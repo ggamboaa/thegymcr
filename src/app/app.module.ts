@@ -8,6 +8,7 @@ import { HeaderComponent } from './core/components/header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DatesComponent } from './modules/dates/dates.component';
 import { ReservesComponent } from './modules/reserves/reserves.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,13 @@ import { ReservesComponent } from './modules/reserves/reserves.component';
     DatesComponent,
     ReservesComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

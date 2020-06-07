@@ -1,107 +1,84 @@
-<div class="container w-100">
+<div class="container">
   <div class="row">
-    <div class="container">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img
-                src="assets/img/user-1.png"
-                alt=""
-                class="img-fluid rounded-circle avatar mr2"
-              />
-              Usuario
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div id="content" class="w-100">
-    <section class="py-3">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="card m-3">
-            <h5 class="card-header text-center">Bienvenido al Sistema</h5>
-            <div class="card-body">
-              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="id">Cédula</label>
-                    <input
-                      type="text"
-                      formControlName="id"
-                      class="form-control"
-                      [ngClass]="{ 'is-invalid': submitted && f.id.errors }"
-                    />
-                    <div
-                      *ngIf="submitted && f.id.errors"
-                      class="invalid-feedback"
-                    >
-                      <div *ngIf="f.id.errors.required">
-                        Cédula es requerida
-                      </div>
+    <div class="col-12">
+      <section class="py-3">
+        <div class="card m-3">
+          <h5 class="card-header text-center">Reserve su cita</h5>
+          <div class="card-body">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+              <div class="form-inline">
+                <div class="form-group col-xs-12 col-sm-3 col-lg-3">
+                  <label for="iden">Cédula</label>
+                  <input
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0–9]*"
+                    onkeypress="return (event.charCode>=48 && event.charCode<=57) || event.charCode==0"
+                    formControlName="iden"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.iden.errors }"
+                  />
+                  <div
+                    *ngIf="submitted && f.iden.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.iden.errors.required">
+                      Cédula es requerida
                     </div>
                   </div>
-                  <div class="form-group col">
-                    <label for="days">Día</label>
-                    <select
-                      formControlName="days"
-                      class="form-control"
-                      id="days"
-                    >
-                      <option
-                        *ngFor="let day of days; let i = index"
-                        [value]="days[i].id"
-                      >
-                        {{ day.desc }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="form-group col">
-                    <label for="hours">Hora</label>
-                    <select
-                      formControlName="hours"
-                      class="form-control"
-                      id="hours"
-                    >
-                      <option
-                        *ngFor="let hour of hours; let i = index"
-                        [value]="hours[i].id"
-                      >
-                        {{ hour.desc }}
-                      </option>
-                    </select>
-                  </div>
                 </div>
-                <div class="text-center">
-                  <button class="btn btn-primary mr-1">Guardar</button>
+                <div class="form-group col-xs-12 col-sm-3 col-lg-3">
+                  <label for="campus">Sede</label>
+                  <select
+                    formControlName="campus"
+                    class="form-control"
+                    id="campus"
+                  >
+                    <option
+                      *ngFor="let campu of campus; let i = index"
+                      [value]="campus[i].id"
+                    >
+                      {{ campu.desc }}
+                    </option>
+                  </select>
                 </div>
-              </form>
-            </div>
+                <div class="form-group col-xs-12 col-sm-3 col-lg-3">
+                  <label for="days">Día</label>
+                  <select formControlName="days" class="form-control" id="days">
+                    <option
+                      *ngFor="let day of days; let i = index"
+                      [value]="days[i].id"
+                    >
+                      {{ day.desc }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group col-xs-12 col-sm-3 col-lg-3">
+                  <label for="hours">Grupo (Hora)</label>
+                  <select
+                    formControlName="hours"
+                    class="form-control"
+                    id="hours"
+                  >
+                    <option
+                      *ngFor="let hour of hours; let i = index"
+                      [value]="hours[i].id"
+                    >
+                      {{ hour.desc }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary mr-1">Guardar</button>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="col-lg-3 d-flex"></div>
-      </div>
-    </section>
+      </section>
+      <section class="py-3 text-center">
+        <img src="assets/img/thegym.png" alt="" width="150px" height="150px" />
+      </section>
+    </div>
   </div>
 </div>

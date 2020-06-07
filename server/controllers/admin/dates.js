@@ -30,7 +30,7 @@ exports.getAll = (req, res) => {
   let offset = page * limit;
 
   if (filter) {
-    models.Department.findAndCountAll({
+    models.Dates.findAndCountAll({
       limit: limit,
       offset: offset,
       order: [[sort, direction]],
@@ -41,34 +41,30 @@ exports.getAll = (req, res) => {
         ],
       },
     })
-      .then((departments) => {
-        res
-          .status(200)
-          .json({
-            records: departments.rows,
-            totalRecords: departments.count,
-            numberOfPageRecords: limit,
-          });
+      .then((dates) => {
+        res.status(200).json({
+          records: dates.rows,
+          totalRecords: dates.count,
+          numberOfPageRecords: limit,
+        });
       })
       .catch((error) => {
         res.status(404).send("Internal Server Error:" + error);
       });
   } else {
-    models.Department.findAndCountAll({
+    models.Dates.findAndCountAll({
       limit: limit,
       offset: offset,
       order: [[sort, direction]],
     })
-      .then((departments) => {
-        let pages = Math.ceil(departments.count / limit);
-        res
-          .status(200)
-          .json({
-            records: departments.rows,
-            totalRecords: departments.count,
-            totalPages: pages,
-            numberOfPageRecords: limit,
-          });
+      .then((dates) => {
+        let pages = Math.ceil(dates.count / limit);
+        res.status(200).json({
+          records: dates.rows,
+          totalRecords: dates.count,
+          totalPages: pages,
+          numberOfPageRecords: limit,
+        });
       })
       .catch((error) => {
         res.status(404).send("Internal Server Error:" + error);
@@ -79,9 +75,9 @@ exports.getAll = (req, res) => {
 exports.findByPk = (req, res) => {
   let id = req.params.id;
 
-  models.Department.findByPk(id, {})
-    .then((department) => {
-      res.json(department);
+  models.Dates.findByPk(id, {})
+    .then((dates) => {
+      res.json(dates);
     })
     .catch((error) => {
       console.log(error);
@@ -90,9 +86,9 @@ exports.findByPk = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  models.Department.create(req.body)
-    .then((department) => {
-      res.send(department);
+  models.Dates.create(req.body)
+    .then((dates) => {
+      res.send(dates);
     })
     .catch((error) => {
       console.log(error);
@@ -103,7 +99,7 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
   let pId = req.params.id;
 
-  models.Department.update(req.body, { where: { id: pId } })
+  models.Dates.update(req.body, { where: { id: pId } })
     .then(() => {
       res.status(200).send("data updated");
     })
@@ -116,7 +112,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   let pId = req.params.id;
 
-  models.Department.destroy({ where: { id: pId } }).then(() => {
+  models.Dates.destroy({ where: { id: pId } }).then(() => {
     res.status(200).send("data deleted a user with id = " + pId);
   });
 };
@@ -124,10 +120,9 @@ exports.delete = (req, res) => {
 exports.changeStatus = (req, res) => {
   let id = req.params.id;
 
-  models.Department.update(
-    { status: req.body.status },
-    { where: { id: id } }
-  ).then(() => {
-    res.status(200).send("dataa updated a deparment with id = " + id);
-  });
+  models.Date.update({ status: req.body.status }, { where: { id: id } }).then(
+    () => {
+      res.status(200).send("data updated a date with id = " + id);
+    }
+  );
 };

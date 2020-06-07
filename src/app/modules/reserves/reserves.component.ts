@@ -1,3 +1,4 @@
+import { ReserveService } from './../../core/data-services/reserve.service';
 import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,26 +10,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ReservesComponent implements OnInit {
   registerForm: FormGroup;
+  campus = [
+    { id: '1', desc: 'Alajuela' },
+    { id: '2', desc: 'Heredia' },
+  ];
   days = [];
   hours = [];
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private readonly reserveService: ReserveService,
+    private formBuilder: FormBuilder
+  ) {
     // async days
     of(this.getDays()).subscribe((days) => {
       this.days = days;
-      // this.registerForm.controls.days.patchValue(this.days[0].id);
     });
 
     of(this.getHours()).subscribe((hours) => {
       this.hours = hours;
-      // this.registerForm.controls.hours.patchValue(this.hours[0].id);
     });
   }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      id: ['', Validators.required],
+      iden: ['', Validators.required],
+      campus: [''],
       days: [''],
       hours: [''],
     });
@@ -69,10 +76,19 @@ export class ReservesComponent implements OnInit {
       return;
     }
 
-    // display form values on success
-    alert(
-      'SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4)
+    this.reserveService.add(this.registerForm.value).subscribe(
+      () => {
+        console.log('Guardado..!');
+      },
+      (error) => {
+        console.log(error);
+      }
     );
+
+    // display form values on success
+    // alert(
+    //   'SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4)
+    // );
   }
 
   onReset() {
