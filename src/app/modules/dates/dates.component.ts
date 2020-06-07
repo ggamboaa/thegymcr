@@ -17,7 +17,7 @@ export class DatesComponent implements OnInit {
 
   private loadDates(): void {
     this.dateService.get().subscribe((response) => {
-      this.dates = response;
+      this.dates = response.records;
     });
   }
 }

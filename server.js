@@ -8,7 +8,7 @@ const seed = require("./server/models/seed/seed-bd");
 // setup the Express middleware
 //require('./server/middleware/middleware')(app);
 
-// app.use(cors());
+app.use(cors());
 
 // Create link to Angular build directory
 var distDir = __dirname + "/dist/";

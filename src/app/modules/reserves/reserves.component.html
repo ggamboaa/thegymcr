@@ -35,7 +35,7 @@
                   >
                     <option
                       *ngFor="let campu of campus; let i = index"
-                      [value]="campus[i].id"
+                      [value]="campus[i].desc"
                     >
                       {{ campu.desc }}
                     </option>
@@ -46,7 +46,7 @@
                   <select formControlName="days" class="form-control" id="days">
                     <option
                       *ngFor="let day of days; let i = index"
-                      [value]="days[i].id"
+                      [value]="days[i].desc"
                     >
                       {{ day.desc }}
                     </option>
@@ -61,7 +61,7 @@
                   >
                     <option
                       *ngFor="let hour of hours; let i = index"
-                      [value]="hours[i].id"
+                      [value]="hours[i].desc"
                     >
                       {{ hour.group }} - {{ hour.desc }}
                     </option>
@@ -79,7 +79,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12 text-center my-2">
-              <h3>Mi Cita Actual</h3>
+              <h3>Mi cita actual</h3>
             </div>
             <div class="col-xs-12 col-sm-12 col-lg-12">
               <table
