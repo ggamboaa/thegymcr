@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DatesComponent } from './modules/dates/dates.component';
 import { ReservesComponent } from './modules/reserves/reserves.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

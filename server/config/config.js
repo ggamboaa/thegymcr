@@ -16,5 +16,14 @@ module.exports = {
     use_env_variable: false,
   },
 
+  // production: {
+  //   username: "gamboa",
+  //   password: "1234",
+  //   database: "thegymcr",
+  //   host: "localhost",
+  //   dialect: "mysql",
+  //   use_env_variable: false,
+  // },
+
   // mysql://b3e0e3b0752e09:9924dd67@us-cdbr-east-05.cleardb.net/heroku_abc0aac4411dfff?reconnect=true
 };
