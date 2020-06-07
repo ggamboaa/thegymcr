@@ -10,11 +10,35 @@ import { map, catchError } from 'rxjs/operators';
 export class DatesService {
   constructor(private http: HttpClient) {}
 
-  public getCustomers(): Observable<any> {
+  public get(): Observable<any> {
     return this.http.get(`${CONFIG.api.basePath}/dates`).pipe(
       map((data) => data),
       catchError(this.handleError<any>('getDates'))
     );
+  }
+
+  public getAll(pQuery: any): Observable<any> {
+    return this.http
+      .get(`${CONFIG.api.basePath}/dates`, { params: pQuery })
+      .pipe(catchError(this.handleError<any>('getDates')));
+  }
+
+  public add(objCustomer: any): Observable<any> {
+    return this.http
+      .post(`${CONFIG.api.basePath}/dates`, objCustomer)
+      .pipe(catchError(this.handleError<any>('getCustomers')));
+  }
+
+  public update(id: number, pDate: any): Observable<any> {
+    return this.http
+      .put(`${CONFIG.api.basePath}/dates/${id}`, pDate)
+      .pipe(catchError(this.handleError<any>('updateDate')));
+  }
+
+  public delete(id: number): Observable<any> {
+    return this.http
+      .delete(`${CONFIG.api.basePath}/dates/${id}`)
+      .pipe(catchError(this.handleError<any>('deleteCustomer')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

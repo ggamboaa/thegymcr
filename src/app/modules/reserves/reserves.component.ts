@@ -1,8 +1,8 @@
-import { ReserveService } from './../../core/data-services/reserve.service';
 import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { DatesService } from 'src/app/core/data-services/dates.service';
 
 @Component({
   selector: 'app-reserves',
@@ -10,53 +10,50 @@ import { NotificationService } from 'src/app/core/services/notification.service'
   styleUrls: ['./reserves.component.css'],
 })
 export class ReservesComponent implements OnInit {
+  public filterBy: any;
+
+  public dates = [
+    { iden: '1', campus: 'Alajuela', days: 'Alajuela', hours: 'Alajuela' },
+  ];
+
   registerForm: FormGroup;
   campus = [
     { id: '1', desc: 'Alajuela' },
     { id: '2', desc: 'Heredia' },
   ];
-  days = [];
+  days = [
+    { id: '1', desc: 'Lunes' },
+    { id: '2', desc: 'Martes' },
+    { id: '3', desc: 'Miércoles' },
+    { id: '4', desc: 'Jueves' },
+    { id: '5', desc: 'Viernes' },
+    { id: '6', desc: 'Sábado' },
+    { id: '7', desc: 'Domingo' },
+  ];
   hours = [];
   submitted = false;
 
   constructor(
-    private readonly reserveService: ReserveService,
+    private readonly datesService: DatesService,
     private formBuilder: FormBuilder,
     private notifyService: NotificationService
   ) {
-    of(this.getDays()).subscribe((days) => {
-      this.days = days;
-    });
-
     of(this.getHours()).subscribe((hours) => {
       this.hours = hours;
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      iden: ['', Validators.required],
+      iden: [' ', Validators.required],
       campus: [''],
       days: [''],
       hours: [''],
     });
   }
 
-  // convenience getter for easy access to form fields
   get f() {
     return this.registerForm.controls;
-  }
-
-  getDays() {
-    return [
-      { id: '1', desc: 'Lunes' },
-      { id: '2', desc: 'Martes' },
-      { id: '3', desc: 'Miércoles' },
-      { id: '4', desc: 'Jueves' },
-      { id: '5', desc: 'Viernes' },
-      { id: '6', desc: 'Sábado' },
-      { id: '7', desc: 'Domingo' },
-    ];
   }
 
   getHours() {
@@ -75,6 +72,22 @@ export class ReservesComponent implements OnInit {
     ];
   }
 
+  loadDates(id: string) {
+    let query = {};
+    if (id && id !== '') {
+      query = { filter: id };
+    }
+
+    this.datesService.getAll(query).subscribe(
+      (response) => {
+        this.dates = response.records;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
   onSubmit() {
     this.submitted = true;
 
@@ -83,12 +96,13 @@ export class ReservesComponent implements OnInit {
       return;
     }
 
-    this.reserveService.add(this.registerForm.value).subscribe(
+    this.datesService.add(this.registerForm.value).subscribe(
       () => {
         this.notifyService.showSuccess(
           'Su cita fue guardada con éxito !!',
           'Cita guardad'
         );
+        this.loadDates(this.registerForm['iden'].value);
         this.ngOnInit();
       },
       (error) => {
