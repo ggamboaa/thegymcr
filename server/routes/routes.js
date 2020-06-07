@@ -12,7 +12,7 @@ module.exports = function (app) {
 
   //-------------------------ADMIN---------------------------
 
-  ///////datesS
+  ///////dates
   app.get("/dates", dates.getAll);
   app.get("/dates/:id", dates.findByPk);
   app.post("/dates", dates.create);
