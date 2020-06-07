@@ -23,9 +23,9 @@ export class DatesService {
       .pipe(catchError(this.handleError<any>('getDates')));
   }
 
-  public add(objCustomer: any): Observable<any> {
+  public add(objDate: any): Observable<any> {
     return this.http
-      .post(`${CONFIG.api.basePath}/dates`, objCustomer)
+      .post(`${CONFIG.api.basePath}/dates`, objDate)
       .pipe(catchError(this.handleError<any>('getCustomers')));
   }
 
