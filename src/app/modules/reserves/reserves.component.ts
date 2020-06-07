@@ -2,6 +2,7 @@ import { ReserveService } from './../../core/data-services/reserve.service';
 import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-reserves',
@@ -20,9 +21,9 @@ export class ReservesComponent implements OnInit {
 
   constructor(
     private readonly reserveService: ReserveService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private notifyService: NotificationService
   ) {
-    // async days
     of(this.getDays()).subscribe((days) => {
       this.days = days;
     });
@@ -84,7 +85,11 @@ export class ReservesComponent implements OnInit {
 
     this.reserveService.add(this.registerForm.value).subscribe(
       () => {
-        console.log('Guardado..!');
+        this.notifyService.showSuccess(
+          'Su cita fue guardada con éxito !!',
+          'Cita guardad'
+        );
+        this.ngOnInit();
       },
       (error) => {
         console.log(error);
