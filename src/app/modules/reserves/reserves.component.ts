@@ -11,10 +11,9 @@ import { DatesService } from 'src/app/core/data-services/dates.service';
 })
 export class ReservesComponent implements OnInit {
   public filterBy: any;
+  public day: any;
 
-  public dates = [
-    { iden: '1', campus: 'Alajuela', days: 'Alajuela', hours: 'Alajuela' },
-  ];
+  public dates = [];
 
   registerForm: FormGroup;
   campus = [
@@ -41,14 +40,25 @@ export class ReservesComponent implements OnInit {
     of(this.getHours()).subscribe((hours) => {
       this.hours = hours;
     });
+
+    var d = new Date();
+    var weekday = new Array(7);
+    weekday[0] = 'Lunes';
+    weekday[1] = 'Martes';
+    weekday[2] = 'Miércoles';
+    weekday[3] = 'Jueves';
+    weekday[4] = 'Sábado';
+    weekday[5] = 'Domingo';
+
+    this.day = weekday[d.getDay()];
   }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      iden: [' ', Validators.required],
-      campus: [''],
-      days: [''],
-      hours: [''],
+      iden: ['', Validators.required],
+      campus: ['', Validators.required],
+      days: this.day,
+      hours: ['', Validators.required],
     });
   }
 
@@ -58,17 +68,17 @@ export class ReservesComponent implements OnInit {
 
   getHours() {
     return [
-      { id: '1', group: 'Grupo #1', desc: '5:00AM - 6:30AM' },
-      { id: '2', group: 'Grupo #2', desc: '6:30AM - 8:00AM' },
-      { id: '3', group: 'Grupo #3', desc: '8:00AM - 9:30AM' },
-      { id: '4', group: 'Grupo #4', desc: '9:30AM - 11:00AM' },
-      { id: '5', group: 'Grupo #5', desc: '11:00AM - 12:30PM' },
-      { id: '6', group: 'Grupo #6', desc: '12:30PM - 1:30PM' },
-      { id: '7', group: 'Grupo #7', desc: '1:30PM - 3:00PM' },
-      { id: '8', group: 'Grupo #8', desc: '3:00PM - 4:30PM' },
-      { id: '9', group: 'Grupo #9', desc: '4:30PM - 6:00PM' },
-      { id: '10', group: 'Grupo #10', desc: '6:00PM - 7:30PM' },
-      { id: '11', group: 'Grupo #11', desc: '7:30PM - 9:00PM' },
+      { id: '1', group: 'G- #1', desc: '5:00AM - 6:30AM' },
+      { id: '2', group: 'G- #2', desc: '6:30AM - 8:00AM' },
+      { id: '3', group: 'G- #3', desc: '8:00AM - 9:30AM' },
+      { id: '4', group: 'G- #4', desc: '9:30AM - 11:00AM' },
+      { id: '5', group: 'G- #5', desc: '11:00AM - 12:30PM' },
+      { id: '6', group: 'G- #6', desc: '12:30PM - 1:30PM' },
+      { id: '7', group: 'G- #7', desc: '1:30PM - 3:00PM' },
+      { id: '8', group: 'G- #8', desc: '3:00PM - 4:30PM' },
+      { id: '9', group: 'G- #9', desc: '4:30PM - 6:00PM' },
+      { id: '10', group: 'G- #10', desc: '6:00PM - 7:30PM' },
+      { id: '11', group: 'G- #11', desc: '7:30PM - 9:00PM' },
     ];
   }
 
@@ -86,12 +96,13 @@ export class ReservesComponent implements OnInit {
         console.log(error);
       }
     );
+
+    // this.ngOnInit();
   }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
@@ -100,20 +111,15 @@ export class ReservesComponent implements OnInit {
       () => {
         this.notifyService.showSuccess(
           'Su cita fue guardada con éxito !!',
-          'Cita guardad'
+          'Cita guardada'
         );
-        this.loadDates(this.registerForm['iden'].value);
-        this.ngOnInit();
+        this.loadDates(this.registerForm.get('iden').value);
+        // this.ngOnInit();
       },
       (error) => {
         console.log(error);
       }
     );
-
-    // display form values on success
-    // alert(
-    //   'SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4)
-    // );
   }
 
   onReset() {

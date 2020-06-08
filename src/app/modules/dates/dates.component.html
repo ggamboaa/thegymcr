@@ -1,23 +1,24 @@
-<!-- <h1>Personas con citas para el día de HOY</h1> -->
-<!-- <img src="assets/img/thegymlogo.png" alt="" class="img-fluid" /> -->
 <div class="container">
   <div class="row">
     <div class="col-12 text-center my-2">
       <h3>Citas para el día de hoy</h3>
     </div>
-    <table class="table table-bordered table-hover table-responsive-sm mt-5">
-      <thead class="thead-dark">
+    <div class="col-12 total">
+      <p>Total: {{ dates.length }}</p>
+    </div>
+    <table class="table table-bordered table-hover text-center table-striped">
+      <thead class="thead-dark text-center">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Usuario</th>
-          <th scope="col">Sede</th>
-          <th scope="col">Día</th>
-          <th scope="col">Hora</th>
+          <th>#</th>
+          <th>Usuario</th>
+          <th>Sede</th>
+          <th>Día</th>
+          <th>Hora</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dates">
-          <th scope="row">1</th>
+        <tr *ngFor="let item of dates; let i = index" class="text-center">
+          <th>{{ i + 1 }}</th>
           <td>{{ item.iden }}</td>
           <td>{{ item.campus }}</td>
           <td>{{ item.days }}</td>
