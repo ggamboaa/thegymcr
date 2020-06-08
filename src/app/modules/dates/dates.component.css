@@ -1,4 +1,14 @@
-.radios {
+.total {
   display: flex;
   justify-content: flex-end;
+}
+
+.total p {
+  display: inline;
+  font-size: 20px;
+  color: green;
+}
+
+thead tr th {
+  color: var(--primary);
 }
