@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { DatesService } from 'src/app/core/data-services/dates.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reserves',
@@ -12,10 +18,12 @@ import { DatesService } from 'src/app/core/data-services/dates.service';
 export class ReservesComponent implements OnInit {
   public filterBy: any;
   public day: any;
+  public showBTNSave: boolean;
 
+  public weekday = new Array(7);
   public dates = [];
 
-  registerForm: FormGroup;
+  public registerForm: FormGroup;
   campus = [
     { id: '1', desc: 'Alajuela' },
     { id: '2', desc: 'Heredia' },
@@ -42,24 +50,29 @@ export class ReservesComponent implements OnInit {
     });
 
     var d = new Date();
-    var weekday = new Array(7);
-    weekday[0] = 'Lunes';
-    weekday[1] = 'Martes';
-    weekday[2] = 'Miércoles';
-    weekday[3] = 'Jueves';
-    weekday[4] = 'Sábado';
-    weekday[5] = 'Domingo';
+    // this.weekday = new Array(7);
+    this.weekday[0] = 'Lunes';
+    this.weekday[1] = 'Martes';
+    this.weekday[2] = 'Miércoles';
+    this.weekday[3] = 'Jueves';
+    this.weekday[4] = 'Sábado';
+    this.weekday[5] = 'Domingo';
 
-    this.day = weekday[d.getDay()];
+    this.day = this.weekday[d.getDay()];
   }
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  initForm() {
     this.registerForm = this.formBuilder.group({
       iden: ['', Validators.required],
       campus: ['', Validators.required],
       days: this.day,
       hours: ['', Validators.required],
     });
+    this.showBTNSave = true;
   }
 
   get f() {
@@ -82,22 +95,67 @@ export class ReservesComponent implements OnInit {
     ];
   }
 
-  loadDates(id: string) {
+  loadDates(iden: string) {
     let query = {};
-    if (id && id !== '') {
-      query = { filter: id };
+    this.dates = [];
+    this.showBTNSave = true;
+
+    if (iden && iden !== '') {
+      query = { filter: iden };
     }
 
     this.datesService.getAll(query).subscribe(
       (response) => {
-        this.dates = response.records;
+        if (response.totalRecords > 0) {
+          this.dates = response.records;
+          this.showBTNSave = false;
+        }
       },
       (error) => {
         console.log(error);
       }
     );
+  }
 
-    // this.ngOnInit();
+  loadDatesSubmit(iden: string) {
+    let query = {};
+    this.dates = [];
+
+    if (iden && iden !== '') {
+      query = { filter: iden };
+    }
+
+    this.datesService.getAll(query).subscribe(
+      (response) => {
+        if (response.totalRecords > 0) {
+          this.dates = response.records;
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  public deleteDate(id: number): void {
+    // Swal.fire({
+    //   title: '¿Desea eliminar el registro seleccionado?',
+    //   text: 'No será posible recuperarlo posteriormente!',
+    //   type: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Sí, eliminar!',
+    //   cancelButtonText: 'No, cancelar',
+    // }).then((result) => {
+    //   if (result.value) {
+    this.datesService.delete(id).subscribe(() => {
+      this.showBTNSave = true;
+      this.dates = [];
+    });
+    //   Swal.fire('Eliminado!', 'Su registro ha sido eliminado', 'success');
+    // } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //   Swal.fire('Cancelado', 'Su registro está seguro :)', 'error');
+    // }
+    // });
   }
 
   onSubmit() {
@@ -110,10 +168,13 @@ export class ReservesComponent implements OnInit {
     this.datesService.add(this.registerForm.value).subscribe(
       () => {
         this.notifyService.showSuccess(
-          'Su cita fue guardada con éxito !!',
+          '¡ Su cita fue guardada correctamente !',
           'Cita guardada'
         );
-        this.loadDates(this.registerForm.get('iden').value);
+        this.loadDatesSubmit(this.registerForm.get('iden').value);
+        this.registerForm.reset();
+
+        // this.resetForm(this.registerForm);
         // this.ngOnInit();
       },
       (error) => {
@@ -121,6 +182,12 @@ export class ReservesComponent implements OnInit {
       }
     );
   }
+
+  // resetForm(formGroup: FormGroup) {
+  //   let control: AbstractControl = null;
+  //   formGroup.reset();
+  //   formGroup.markAsUntouched();
+  // }
 
   onReset() {
     this.submitted = false;

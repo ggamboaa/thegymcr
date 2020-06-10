@@ -13,6 +13,7 @@
                     type="text"
                     inputmode="numeric"
                     onkeypress="return (event.charCode>=48 && event.charCode<=57) || event.charCode==0"
+                    (blur)="loadDates($event.target.value)"
                     formControlName="iden"
                     class="form-control"
                     maxlength="15"
@@ -98,7 +99,16 @@
                 </div>
               </div>
               <div class="text-center">
-                <button class="btn btn-primary mr-1">Guardar</button>
+                <button class="btn btn-primary mr-1" *ngIf="showBTNSave">
+                  Guardar
+                </button>
+                <div
+                  class="alert alert-danger"
+                  role="alert"
+                  *ngIf="!showBTNSave"
+                >
+                  Ud. ya tiene una cita. Favor elimínela para crear otra.
+                </div>
               </div>
             </form>
           </div>
@@ -118,6 +128,7 @@
                 <th scope="col">Sede</th>
                 <th scope="col">Día</th>
                 <th scope="col">Hora</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -126,6 +137,15 @@
                 <td>{{ item.campus }}</td>
                 <td>{{ item.days }}</td>
                 <td>{{ item.hours }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="deleteDate(item.id)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -133,6 +153,7 @@
       </section>
       <section class="py-3 text-center">
         <img src="assets/img/thegym.png" alt="" width="150px" height="150px" />
+        <h6 class="text-center">Gilbert Gamboa</h6>
       </section>
     </div>
   </div>
