@@ -35,7 +35,7 @@ exports.getAll = (req, res) => {
       offset: offset,
       order: [[sort, direction]],
       where: {
-        [Op.or]: [{ iden: { [Op.like]: "%" + filter + "%" } }],
+        [Op.or]: [{ iden: { [Op.like]: filter } }],
       },
     })
       .then((dates) => {
