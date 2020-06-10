@@ -1,11 +1,9 @@
 const express = require("express");
 const db = require("./models/db");
-const db = require("./server/models/db");
 // var cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
-const seed = require("./models/seed/seed-bd");
-const seed = require("./server/models/seed/seed-bd");
+// const seed = require("./models/seed/seed-bd");
 
 // setup the Express middleware
 //require('./server/middleware/middleware')(app);
@@ -14,7 +12,6 @@ app.use(express.static(distDir));
 
 // setup the API
 require("./routes/routes")(app);
-require("./server/routes/routes")(app);
 
 // connect to DB then run server
 db.sequelize

@@ -184,12 +184,6 @@ export class ReservesComponent implements OnInit {
     );
   }
 
-  // resetForm(formGroup: FormGroup) {
-  //   let control: AbstractControl = null;
-  //   formGroup.reset();
-  //   formGroup.markAsUntouched();
-  // }
-
   onReset() {
     this.submitted = false;
     this.registerForm.reset();
