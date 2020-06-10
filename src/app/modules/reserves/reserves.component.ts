@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { DatesService } from 'src/app/core/data-services/dates.service';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reserves',
@@ -173,6 +173,7 @@ export class ReservesComponent implements OnInit {
         );
         this.loadDatesSubmit(this.registerForm.get('iden').value);
         this.registerForm.reset();
+        this.submitted = false;
 
         // this.resetForm(this.registerForm);
         // this.ngOnInit();
