@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("./models/db");
+const db = require("./server/models/db");
 // var cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,7 +11,7 @@ var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
 // setup the API
-require("./routes/routes")(app);
+require("./server/routes/routes")(app);
 
 // connect to DB then run server
 db.sequelize
