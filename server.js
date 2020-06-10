@@ -26,6 +26,6 @@ db.sequelize
   // })
   .then(() => {
     app.listen(port, () => {
-      console.log("Running server on port " + port);
+      console.log("Running server on port  " + port);
     });
   });
