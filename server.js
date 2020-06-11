@@ -3,14 +3,10 @@ const db = require("./server/models/db");
 // var cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
-const seed = require("./server/models/seed/seed-bd");
+// const seed = require("./models/seed/seed-bd");
 
 // setup the Express middleware
 //require('./server/middleware/middleware')(app);
-
-// app.use(cors());
-
-// Create link to Angular build directory
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
@@ -22,13 +18,11 @@ db.sequelize
   .sync({
     force: true,
   })
-
-  .then(() => {
-    seed.insertingMaintenanceData();
-  })
-
+  // .then(() => {
+  //   seed.insertingMaintenanceData();
+  // })
   .then(() => {
     app.listen(port, () => {
-      console.log("Running server on port " + port);
+      console.log("Running server on port  " + port);
     });
   });

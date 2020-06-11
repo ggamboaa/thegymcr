@@ -40,7 +40,6 @@ exports.getAll = (req, res) => {
       order: [[sort, direction]],
       where: {
         [Op.or]: [{ iden: { [Op.like]: "%" + filter + "%" } }],
-
       },
     })
       .then((dates) => {
