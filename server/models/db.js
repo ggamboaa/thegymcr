@@ -8,23 +8,23 @@ var basename = path.basename(__filename);
 //var config    = require(__dirname + './server/config/config.js')[env];
 var db = {};
 
-// const sequelize = new Sequelize(
-  // "heroku_abc0aac4411dfff",
-  // "b3e0e3b0752e09",
-  // "9924dd67",
-  // {
-    // host: "us-cdbr-east-05.cleardb.net",
-    // dialect: "mysql",
-    // define:{
-    //   freezeTableName: true // Model Name == Table Name
-    // },
+const sequelize = new Sequelize(
+  "heroku_abc0aac4411dfff",
+  "b3e0e3b0752e09",
+  "9924dd67",
+  {
+    host: "us-cdbr-east-05.cleardb.net",
+    dialect: "mysql",
+    define: {
+      freezeTableName: true, // Model Name == Table Name
+    },
 
-    const sequelize = new Sequelize('thegymcr', 'root', '123456', {
-      host: 'localhost',
-      dialect: 'mysql',
-      define:{
-        freezeTableName: true // Model Name == Table Name
-      },
+    // const sequelize = new Sequelize('thegymcr', 'root', '123456', {
+    //   host: 'localhost',
+    //   dialect: 'mysql',
+    //   define:{
+    //     freezeTableName: true // Model Name == Table Name
+    //   },
 
     // username: 'bacd2602f8524e',
     // password: '4376ff1b',

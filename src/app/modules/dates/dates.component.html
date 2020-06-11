@@ -1,54 +1,72 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 text-center my-2">
-      <h3>Citas para el día de hoy</h3>
+    <div class="col-12 text-center my-4">
+      <h3>Búsqueda de Citas por Grupo y Sede</h3>
     </div>
     <form [formGroup]="datesForm" style="min-width: 100%;">
       <div class="container">
         <div class="row">
-          <div class="col-md-3 mb-3">
+          <div class="col-md-4 mb-3">
             <label for="hours">Grupo (Hora) </label>
-            <select class="form-control" id="hours" formControlName="selectedhour" (change)="loadDates()">
-              <option *ngFor="let hour of hours; let i = index" [value]="hours[i].desc">
+            <select
+              class="form-control"
+              id="hours"
+              formControlName="selectedhour"
+              (change)="loadDates()"
+            >
+              <option
+                *ngFor="let hour of hours; let i = index"
+                [value]="hours[i].desc"
+              >
                 {{ hour.group }} - {{ hour.desc }}
               </option>
             </select>
           </div>
           <div class="col-md-3 mb-3">
             <label for="campus">Sede</label>
-            <select class="form-control" id="campus" formControlName="selectedcampus" (change)="loadDates()">
-              <option *ngFor="let campu of campus; let i = index" [value]="campus[i].desc">
+            <select
+              class="form-control"
+              id="campus"
+              formControlName="selectedcampus"
+              (change)="loadDates()"
+            >
+              <option
+                *ngFor="let campu of campus; let i = index"
+                [value]="campus[i].desc"
+              >
                 {{ campu.desc }}
               </option>
             </select>
           </div>
-          <div class="col-md-6" style="text-align: right;">
+          <div class="col-md-4 total">
             <p>Total: {{ dates.length }}</p>
           </div>
         </div>
       </div>
     </form>
-
-    <table class="table table-bordered table-hover text-center table-striped">
-      <thead class="thead-dark text-center">
-        <tr>
-          <th>#</th>
-          <th>Usuario</th>
-          <th>Sede</th>
-          <th>Día</th>
-          <th>Hora</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of dates; let i = index" class="text-center">
-          <th>{{ i + 1 }}</th>
-          <td>{{ item.iden }}</td>
-          <td>{{ item.campus }}</td>
-          <td>{{ item.days }}</td>
-          <td>{{ item.hours }}</td>
-        </tr>
-      </tbody>
-    </table>
-
+  </div>
+  <div style="width: 100%; height: 100%; overflow-x: scroll;">
+    <div class="col-12 text-center my-4">
+      <table class="table table-bordered table-hover text-center">
+        <thead class="thead-dark text-center">
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Sede</th>
+            <th>Día</th>
+            <th>Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dates; let i = index" class="text-center">
+            <th>{{ i + 1 }}</th>
+            <td>{{ item.iden }}</td>
+            <td>{{ item.campus }}</td>
+            <td>{{ item.days }}</td>
+            <td>{{ item.hours }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
