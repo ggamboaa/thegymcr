@@ -50,7 +50,6 @@ export class ReservesComponent implements OnInit {
     });
 
     var d = new Date();
-    // this.weekday = new Array(7);
     this.weekday[0] = 'Lunes';
     this.weekday[1] = 'Martes';
     this.weekday[2] = 'Miércoles';
@@ -156,6 +155,15 @@ export class ReservesComponent implements OnInit {
     //   Swal.fire('Cancelado', 'Su registro está seguro :)', 'error');
     // }
     // });
+    var d = new Date();
+    this.weekday[0] = 'Lunes';
+    this.weekday[1] = 'Martes';
+    this.weekday[2] = 'Miércoles';
+    this.weekday[3] = 'Jueves';
+    this.weekday[4] = 'Sábado';
+    this.weekday[5] = 'Domingo';
+
+    this.day = this.weekday[d.getDay()];
   }
 
   onSubmit() {
@@ -174,9 +182,16 @@ export class ReservesComponent implements OnInit {
         this.loadDatesSubmit(this.registerForm.get('iden').value);
         this.registerForm.reset();
         this.submitted = false;
+        var d = new Date();
+        this.weekday[0] = 'Lunes';
+        this.weekday[1] = 'Martes';
+        this.weekday[2] = 'Miércoles';
+        this.weekday[3] = 'Jueves';
+        this.weekday[4] = 'Sábado';
+        this.weekday[5] = 'Domingo';
 
-        // this.resetForm(this.registerForm);
-        // this.ngOnInit();
+        this.day = this.weekday[d.getDay()];
+        this.registerForm['days'].value = this.day;
       },
       (error) => {
         console.log(error);
