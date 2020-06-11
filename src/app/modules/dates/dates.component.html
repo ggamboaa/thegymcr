@@ -3,9 +3,32 @@
     <div class="col-12 text-center my-2">
       <h3>Citas para el día de hoy</h3>
     </div>
-    <div class="col-12 total">
-      <p>Total: {{ dates.length }}</p>
-    </div>
+    <form [formGroup]="datesForm" style="min-width: 100%;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label for="hours">Grupo (Hora) </label>
+            <select class="form-control" id="hours" formControlName="selectedhour" (change)="loadDates()">
+              <option *ngFor="let hour of hours; let i = index" [value]="hours[i].desc">
+                {{ hour.group }} - {{ hour.desc }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="campus">Sede</label>
+            <select class="form-control" id="campus" formControlName="selectedcampus" (change)="loadDates()">
+              <option *ngFor="let campu of campus; let i = index" [value]="campus[i].desc">
+                {{ campu.desc }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6" style="text-align: right;">
+            <p>Total: {{ dates.length }}</p>
+          </div>
+        </div>
+      </div>
+    </form>
+
     <table class="table table-bordered table-hover text-center table-striped">
       <thead class="thead-dark text-center">
         <tr>
@@ -26,5 +49,6 @@
         </tr>
       </tbody>
     </table>
+
   </div>
 </div>

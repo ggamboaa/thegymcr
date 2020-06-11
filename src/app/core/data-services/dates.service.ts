@@ -10,8 +10,8 @@ import { map, catchError } from 'rxjs/operators';
 export class DatesService {
   constructor(private http: HttpClient) {}
 
-  public get(): Observable<any> {
-    return this.http.get(`${CONFIG.api.basePath}/dates`).pipe(
+  public get(pQuery: any): Observable<any> {
+    return this.http.get(`${CONFIG.api.basePath}/dates`,{ params: pQuery }).pipe(
       map((data) => data),
       catchError(this.handleError<any>('getDates'))
     );

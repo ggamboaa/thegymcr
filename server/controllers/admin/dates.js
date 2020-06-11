@@ -11,6 +11,10 @@ exports.getAll = (req, res) => {
   let sort = "id";
   let filter = null;
 
+  let selectHour = req.query.hour;
+  let selectCampus = req.query.campus
+  
+  
   if (req.query.filter) {
     filter = req.query.filter;
   }
@@ -36,6 +40,7 @@ exports.getAll = (req, res) => {
       order: [[sort, direction]],
       where: {
         [Op.or]: [{ iden: { [Op.like]: "%" + filter + "%" } }],
+
       },
     })
       .then((dates) => {
@@ -43,6 +48,10 @@ exports.getAll = (req, res) => {
           records: dates.rows,
           totalRecords: dates.count,
           numberOfPageRecords: limit,
+          where: {
+            hours: selectHour,
+            campus: selectCampus
+          }
         });
       })
       .catch((error) => {
@@ -53,6 +62,10 @@ exports.getAll = (req, res) => {
       limit: limit,
       offset: offset,
       order: [[sort, direction]],
+      where: {
+        hours: selectHour,
+        campus: selectCampus
+      }
     })
       .then((dates) => {
         let pages = Math.ceil(dates.count / limit);
@@ -83,6 +96,19 @@ exports.findByPk = (req, res) => {
 };
 
 exports.create = (req, res) => {
+  // var iden = req.body.iden;
+  // var now = new Date();
+  // models.Dates.findAll({
+  //   where: {
+  //     iden: iden,
+  //     createdAt:{
+  //       [Op.gte]
+  //     }
+  //   }
+  // })
+  // .then((res)=>{
+  //   console.log(res);
+  // })
   models.Dates.create(req.body)
     .then((dates) => {
       res.send(dates);
